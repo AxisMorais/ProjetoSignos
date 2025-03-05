@@ -30,7 +30,7 @@ hr {
     padding: 0 20px; /* Espaçamento horizontal para evitar que o conteúdo encoste nas bordas */
 }
 #inputData {
-    width: 90%;           /* Usa 90% da largura do container  */
+    width: 90%;           /* Usa 90% da largura do container */
     max-width: 550px;     /* Limita a largura máxima */
     height: 40px;
     display: block;
