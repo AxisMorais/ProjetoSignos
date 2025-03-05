@@ -1,0 +1,64 @@
+body {
+    
+        background-image: url('../img/IMG_Fundo.jpg'); /* Define a imagem */
+        background-size: cover; /* Faz a imagem cobrir toda a tela */
+        background-position: center; /* Centraliza a imagem */
+        background-repeat: no-repeat; /* Evita repetição da imagem */
+    
+}
+.formatacaoParagrafo{
+   font-size: 40;
+   color: rgb(243, 243, 245);
+   text-align: center;
+   
+}
+
+hr {
+    border: none;
+    height: 2px;
+    background-color: rgb(245, 238, 238); /* Linha preta */
+    margin: 10px 0; /* Espaço acima e abaixo da linha */
+}
+
+.container {
+    display: flex;
+    flex-direction: column; /* Caso tenha múltiplos elementos */
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center;     /* Centraliza horizontalmente */
+    margin-top: 30px;
+    color: white;
+    padding: 0 20px; /* Espaçamento horizontal para evitar que o conteúdo encoste nas bordas */
+}
+#inputData {
+    width: 90%;           /* Usa 90% da largura do container  */
+    max-width: 550px;     /* Limita a largura máxima */
+    height: 40px;
+    display: block;
+    margin: 0 auto;       /* Centraliza horizontalmente */
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 0 0 8px 0px #fff; /* Sombra branca */
+    border: none;
+    color: #474747;
+    text-align: center;
+}
+
+#botao {
+    width: 20%;           /
+    max-width: 300px;     /* Limite máximo igual ao input */
+    height: 40px;         /* Altura igual */
+    display: block;
+    margin: 10px auto;    /* Centraliza horizontalmente e adiciona margem superior */
+    border-radius: 10px;  /* Arredonda os cantos igual ao input */
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 0 0 8px 0px #fff; /* Mesmo efeito de sombra */
+    background-color: #f0f1f1;   /* Cor de fundo, ajuste conforme o projeto */
+    border: none;
+    color: #464545;
+    font-size: 1rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+}
