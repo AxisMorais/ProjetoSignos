@@ -1,64 +1,73 @@
-<?php include('layouts/header.php');?>
+<?php include('layouts/header.php'); ?>
 
 <div class="container mt-5">
-    <h1> Resultados </h1>
-    
+    <h1>Resultados</h1>
+
     <?php
-         /* Paso 1 - Garatir que tenha valores no campo de data de nascimento
-            Na condicional IF temos a função isset, ela serve para verificar se  a 
-            data de nascimento foi definida caso tenha uma data ela retorna True. 
-            Já o !empty verifica se não está vazio
-         */
-          if (isset($_GET['dataNascimento']) && !empty($_GET['dataNascimento'])) {
-            $dataNascimento = $_GET['dataNascimento'];
-            echo "Data de nascimento informada: $dataNascimento <br>";
+    // Verifica se a data foi informada
+    if (isset($_GET['dataNascimento']) && !empty($_GET['dataNascimento'])) {
+        $dataNascimento = trim($_GET['dataNascimento']);
 
-           //Passo 2 - Carregar os arquivos XMl 
-           $signos = simplexml_load_file("signos.xml");
-             
-       
-            /* Passo 3 - Manipular a variável data utilizando o  DateTime::createFromFormat()
-               DateTime::createFromFormat() é um método estático da classe DateTime em PHP,
-               utilizado para criar um objeto DateTime a partir de uma string de data fornecida, 
-               com base no formato especificado, É a classe que fornece métodos 
-               para manipulação de datas e horas em PHP.. 
-            
-              Os 4 pontinhos ::  É chamado de  Operador de Resolução de Escopo
-              O operador :: é utilizado para chamar métodos estáticos ou acessar propriedades estáticas 
-              de uma classe. No caso, o método createFromFormat() é estático, então ele é chamado 
-              diretamente pela classe DateTime, sem a necessidade de criar uma instância da classe. 
+        echo "Data de nascimento informada: $dataNascimento <br>";
 
-            */
-            //Passo 3.1  Padronizando os formatos. 
-            $dataNascimento = DateTime::createFromFormat('d/m/Y', $dataNascimento);
-            $dataNascimentoFormatada = $dataNascimento->format('d/m');
+        // Carrega o XML dos signos
+        $signos = simplexml_load_file("signos.xml");
 
-            /*Passo 4 Criar variáveis para rececer as datas início e fim do xml e compará-las 
-             com o que foi informado pelo usuário; 
-             */
-            $signoEncontrado = false;
-            foreach ($signos->signo as $signo) {
-                $dataInicio = DateTime::createFromFormat('d/m', (string)$signo->dataInicio);
-                $dataFim = DateTime::createFromFormat('d/m', (string)$signo->dataFim);
-                echo " $signo->descricao <br> ";
+        // Converte a data para um objeto DateTime
+        $dataNascimentoObj = DateTime::createFromFormat('d/m/Y', $dataNascimento);
 
-              // Passo 5 Verificar se a data de nascimento está dentro do intervalo do signo
-              if (($dataNascimentoFormatada >= $dataInicio->format('d/m')) && ($dataNascimentoFormatada <= $dataFim->format('d/m'))) {
-                echo "<p>Seu signo é: " . $signo->descricao . "</p>";
-                $signoEncontrado = true;
-                break;
+        // Se a conversão falhar, exibe erro
+        if (!$dataNascimentoObj) {
+            echo "Erro: Data inválida! Certifique-se de usar o formato correto (DD/MM/AAAA).";
+            exit;
+        }
+
+        // Formata a data de nascimento para dia/mês
+        $dataNascimentoFormatada = $dataNascimentoObj->format('d/m');
+        $diaNascimentoUsuario = (int) $dataNascimentoObj->format('d');
+        $mesNascimentoUsuario = (int) $dataNascimentoObj->format('m');
+
+        echo "Data formatada: $dataNascimentoFormatada <br>";
+
+        // Variável para armazenar o signo correspondente
+        $signoEncontrado = "Desconhecido";
+
+        // Percorre o XML e verifica em qual intervalo a data de nascimento se encaixa
+        foreach ($signos->signo as $signo) {
+            // Obtém os intervalos de início e fim do signo no formato dia/mês
+            $dataInicio = DateTime::createFromFormat('d/m', trim($signo->dataInicio));
+            $dataFim = DateTime::createFromFormat('d/m', trim($signo->dataFim));
+
+            // Verifica se as datas foram convertidas corretamente
+            if (!$dataInicio || !$dataFim) {
+                echo "Erro ao converter as datas do XML.";
+                exit;
+            }
+
+            // Converte os dias e meses em inteiros para comparar
+            $diaInicio = (int) $dataInicio->format('d');
+            $mesInicio = (int) $dataInicio->format('m');
+            $diaFim = (int) $dataFim->format('d');
+            $mesFim = (int) $dataFim->format('m');
+
+            // Verifica se a data de nascimento está dentro do intervalo do signo
+            if (
+                ($mesNascimentoUsuario == $mesInicio && $diaNascimentoUsuario >= $diaInicio) ||
+                ($mesNascimentoUsuario == $mesFim && $diaNascimentoUsuario <= $diaFim) ||
+                ($mesNascimentoUsuario > $mesInicio && $mesNascimentoUsuario < $mesFim)
+            ) {
+                $signoEncontrado = trim($signo->descricao);
+                break; // Sai do loop ao encontrar o signo correto
             }
         }
 
-
-
-          }else {
-            echo "<p>Não foi possível determinar o seu signo. Verifique a data informada.</p>";
-          }
+        // Exibe o signo correspondente
+        echo "<h2>Seu signo é: $signoEncontrado</h2>";
+    } else {
+        echo "<p>Não foi possível determinar o seu signo. Verifique a data informada.</p>";
+    }
     ?>
-   
- 
+
 </div>
 
 <?php include('layouts/footer.php'); ?>
-
