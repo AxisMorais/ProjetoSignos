@@ -6,6 +6,7 @@ body {
         background-repeat: no-repeat; /* Evita repetição da imagem */
     
 }
+/* Titulo Principal Portal dos Signos*/ 
 .formatacaoParagrafo{
    font-size: 40;
    color: rgb(243, 243, 245);
@@ -19,7 +20,7 @@ hr {
     background-color: rgb(245, 238, 238); /* Linha preta */
     margin: 10px 0; /* Espaço acima e abaixo da linha */
 }
-/* Container contém o formulário e parágrado*/ 
+/* Container aplicado na  div para o  formulário  e o parágrafo informe a data */ 
 .container {
     display: flex;
     flex-direction: column; /* Caso tenha múltiplos elementos */
@@ -45,7 +46,8 @@ hr {
 }
 
 #botao {
-    width: 20%;           /
+    width: 50%;
+    margin-top: 50%;           
     max-width: 300px;     /* Limite máximo igual ao input */
     height: 40px;         /* Altura igual */
     display: block;
@@ -56,7 +58,7 @@ hr {
     box-shadow: 0 0 8px 0px #fff; /* Mesmo efeito de sombra */
     background-color: #f0f1f1;   /* Cor de fundo, ajuste conforme o projeto */
     border: none;
-    color: #464545;
+    color: #3b3b3b;
     font-size: 1rem;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: bold;

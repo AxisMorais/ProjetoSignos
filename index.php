@@ -6,10 +6,11 @@
     <hr>
     <div class = "container">
         <p>Informe abaixo a  data de nascimento: </p>
-        <form>
-            <input type="texto" id="inputData" placeholder="Ex: 15/02/2002 " >
+        <form form method="get" action="show_zodiac_sign.php">
+            <input type="texto" id="inputData" placeholder="Ex: 15/02/2002 " name="dataNascimento">
+            <button type="submit" id="botao">Enviar </button> 
         </form>
-        <button type="submit" id="botao">Enviar </button> 
+        
     </div> 
     
 </main>
