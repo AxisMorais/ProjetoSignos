@@ -12,14 +12,14 @@ body {
    text-align: center;
    
 }
-
+/* Linha se separação de conteúdo*/
 hr {
     border: none;
     height: 2px;
     background-color: rgb(245, 238, 238); /* Linha preta */
     margin: 10px 0; /* Espaço acima e abaixo da linha */
 }
-
+/* Container contém o formulário e parágrado*/ 
 .container {
     display: flex;
     flex-direction: column; /* Caso tenha múltiplos elementos */
@@ -61,4 +61,24 @@ hr {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: bold;
     cursor: pointer;
+}
+/* -------------------------------------------------------------------------------------- */
+/* Animação CSS*/
+@keyframes fadeInUp{
+    from{
+     opacity:0;
+     transform: translateY(30px);
+    }
+    to{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+}
+.animated{
+    animation-duration: 1.5s;
+    animation-fill-mode:both;
+}
+.fadeInup{
+    animation-name:fadeInUp;
 }
